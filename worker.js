@@ -24,7 +24,7 @@ export default {
             await response.arrayBuffer()
         );
 
-        console.log(image.constructor.name);
+        console.log(image instanceof Image);
 
         const scale = Math.min(
                 64 / image.width,
