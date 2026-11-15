@@ -2,6 +2,7 @@ import { Image } from "imagescript";
 
 export default {
     async fetch(request) {
+        console.log(request)
         const url = new URL(request.url);
         const imageUrl = url.searchParams.get("url");
 
