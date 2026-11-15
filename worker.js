@@ -2,7 +2,6 @@ import { Image } from "imagescript";
 
 export default {
     async fetch(request) {
-        console.log(request)
         const url = new URL(request.url);
         const imageUrl = url.searchParams.get("url");
 
@@ -12,7 +11,7 @@ export default {
             }, { status: 400 });
         }
 
-        const response = await fetch(imageUrl);
+        const response = await fetch(imageUrl);  
 
         if (!response.ok) {
             return Response.json({
@@ -24,8 +23,16 @@ export default {
             await response.arrayBuffer()
         );
 
-        console.log(image instanceof Image);
+        const contentType = response.headers.get("content-type");
 
+        if (contentType?.includes("image/GIF")) {
+                console.log("It's a GIF!");
+        } else if (contentType?.startsWith("image/")) {
+            console.log("It's a regular image!");
+        } else {
+            console.log("Not an image!");
+        } 
+        
         const scale = Math.min(
                 64 / image.width,
                 64 / image.height,
