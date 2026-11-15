@@ -24,6 +24,17 @@ export default {
             await response.arrayBuffer()
         );
 
+        const scale = Math.min(
+                64 / image.width,
+                64 / image.height,
+                1
+        );
+
+        const width = Math.max(1, Math.floor(image.width * scale));
+        const height = Math.max(1, Math.floor(image.height * scale));
+
+        image.resize(width, height);
+
         const pixels = [];
 
         for (let y = 0; y < image.height; y++) {
